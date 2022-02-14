@@ -30,16 +30,16 @@ import com.example.compose1.R
 @Composable
 fun ProfilePage3(){
 
-    Card(elevation = 10.dp, modifier = Modifier
+    Card(elevation = 6.dp, modifier = Modifier
         .fillMaxSize()
-        .padding(top = 100.dp, bottom = 100.dp, start = 16.dp, end = 16.dp)
+        .padding(top = 50.dp, bottom = 100.dp, start = 16.dp, end = 16.dp)
         .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(30.dp))) {
 
         BoxWithConstraints {
             val constraints = if (minWidth < 600.dp) {
                 portraitConstraints(margin = 16.dp)
             } else {
-                portraitConstraints(margin = 16.dp)
+                landscapeConstraints(margin = 16.dp)
             }
 
             ConstraintLayout(constraints) {
@@ -48,7 +48,7 @@ fun ProfilePage3(){
                     painter = painterResource(id = R.drawable.husky),
                     contentDescription = "husky",
                     modifier = Modifier
-                        .size(120.dp)
+                        .size(80.dp)
                         .clip(CircleShape)
                         .border(
                             width = 2.dp,
@@ -63,7 +63,8 @@ fun ProfilePage3(){
                     modifier = Modifier.layoutId("nameText")
                 )
 
-                Text("Germany", fontSize = 15.sp, modifier = Modifier.layoutId("countryText"))
+                Text("Germany", fontSize = 15.sp,
+                    modifier = Modifier.layoutId("countryText"))
 
                 Row(
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -78,11 +79,14 @@ fun ProfilePage3(){
                 }
 
 
-                Button(onClick = { }) {
-                    Text(text = "Follow User", modifier = Modifier.layoutId("buttonFollow"))
+                Button(onClick = { }
+                    , modifier = Modifier.layoutId("buttonFollow")) {
+                    Text(text = "Follow User")
                 }
-                Button(onClick = { }) {
-                    Text(text = "Direct Message", modifier = Modifier.layoutId("buttonMessage"))
+                Button(onClick = { },
+                    modifier = Modifier.layoutId("buttonMessage")) {
+                    Text(text = "Direct Message",
+                        )
                 }
             }
         }
@@ -135,6 +139,57 @@ private fun portraitConstraints(margin:Dp):ConstraintSet{
             end.linkTo(parent.end)
             width = Dimension.wrapContent
         }
+    }
+}
+
+private fun landscapeConstraints(margin: Dp):ConstraintSet{
+    return ConstraintSet{
+        val image = createRefFor("image")
+        val nameText = createRefFor("nameText")
+        val countryText = createRefFor("countryText")
+        val rowStats = createRefFor("rowStats")
+        val buttonFollow = createRefFor("buttonFollow")
+        val buttonMessage = createRefFor("buttonMessage")
+        val guideLine = createGuidelineFromTop(0.3f)
+
+        constrain(image){
+            top.linkTo(parent.top,margin = margin)
+            start.linkTo(parent.start,margin = margin)
+        }
+
+        constrain(nameText){
+            top.linkTo(image.bottom)
+            start.linkTo(image.start)
+        }
+
+        constrain(countryText){
+            top.linkTo(nameText.bottom)
+            start.linkTo(nameText.start)
+            end.linkTo(nameText.end)
+        }
+
+        constrain(rowStats){
+            top.linkTo(image.top)
+            start.linkTo(image.end,margin = margin)
+            end.linkTo(parent.end)
+        }
+
+        constrain(buttonFollow){
+            top.linkTo(rowStats.bottom,margin = 16.dp)
+            start.linkTo(rowStats.start)
+            end.linkTo(buttonMessage.start)
+            bottom.linkTo(countryText.bottom)
+            width = Dimension.wrapContent
+        }
+
+        constrain(buttonMessage){
+            top.linkTo(rowStats.bottom,margin = 16.dp)
+            start.linkTo(buttonFollow.end)
+            end.linkTo(parent.end)
+            bottom.linkTo(countryText.bottom)
+            width = Dimension.wrapContent
+        }
+
     }
 }
 

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.sp
 import com.example.compose1.ui.theme.Compose1Theme
 import com.example.compose1.ui.theme.ProfilePage
 import com.example.compose1.ui.theme.ProfilePage2
+import com.example.compose1.ui.theme.ProfilePage3
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
