@@ -26,6 +26,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import com.example.compose1.R
+import com.example.compose1.myApp
 
 @Composable
 fun ProfilePage3(){
@@ -54,7 +55,8 @@ fun ProfilePage3(){
                             width = 2.dp,
                             color = Color.Red,
                             shape = CircleShape
-                        ).layoutId("image"),
+                        )
+                        .layoutId("image"),
                     contentScale = ContentScale.Crop
                 )
 
